@@ -1,9 +1,3 @@
-#! /usr/bin/env python3
-# Authors: C0MPL3XDEV & JProgrammer-it
-# Support me with follow my instagram page and github page 
-# Disclaimer: please dont edit or recode the original source code !
-# Last update: 21/09/2021 - version 1.1
-
 import os
 import sys
 import re
