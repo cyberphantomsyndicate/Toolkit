@@ -11,8 +11,8 @@ def startMessage ():#line:7
    1. Go to Insta and massage
    2. Insta ID: termux_official078
    3. Send massage for code
-   4. You need to purchase the code price: 100 rupees
-   5. Next time come with code and use this tool
+   4.  Next time come with code and use this tool
+   5.bye
     ''')#line:18
         startMessage ()#line:19
     else :#line:20
