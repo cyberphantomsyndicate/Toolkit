@@ -8,7 +8,7 @@ def startMessage ():#line:7
     if OOOO0OO000OO0OOOO !=OO0O0OO0OOO0OO0O0 :#line:10
         print (Fore .RED +'[X] Wrong Code')#line:11
         print (Fore .BLUE +''' 
-   1. Go to Insta and massage 
+   1. Go to Insta and massage
    2. Insta ID: termux_official078
    3. Send massage for code
    4. You need to purchase the code price: 100 rupees
