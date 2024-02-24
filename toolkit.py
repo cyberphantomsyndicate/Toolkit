@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-import time #line:3
+import time 
 from colorama import Fore ,Back ,Style ,init #line:4
 init (autoreset =True )#line:5
 def startMessage ():#line:7
