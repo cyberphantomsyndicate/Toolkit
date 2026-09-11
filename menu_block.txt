@@ -1,0 +1,25 @@
+
+def menu():
+    os.system("clear")
+    print(logo)
+    print(f"""
+         {W}\033[2;30m Choose number or type exit for exiting {w}
+
+        {w}{b}  01{w} Userrecon     {d} Username reconnaissance
+        {w}{b}  02{w} Facedumper    {d} Dump facebook information
+        {w}{b}  03{w} Mailfinder    {d} Find email with name
+        {w}{b}  04{w} Godorker      {d} Dorking with google search
+        {w}{b}  05{w} Phoneinfo     {d} Phone number information
+        {w}{b}  06{w} DNSLookup     {d} Domain name system lookup
+        {w}{b}  07{w} Whoislookup   {d} Identify who is on domain
+        {w}{b}  08{w} Sublookup     {d} Subnetwork lookup
+        {w}{b}  09{w} Hostfinder    {d} Find host domain
+        {w}{b}  10{w} DNSfinder     {d} Find host domain name system
+        {w}{b}  11{w} RIPlookup     {d} Reverse IP lookup
+        {w}{b}  12{w} IPlocation    {d} IP to location tracker
+        {w}{b}  13{w} Bitly Bypass  {d} Bypass all bitly urls
+        {w}{b}  14{w} Github Lookup {d} Dump GitHub information
+        {w}{b}  15{w} TempMail {d}      Generate Temp Mail and Mail Box
+        {w}{b}  00{w} Exit          {d} Bye ):
+        """)
+    mainmenu()

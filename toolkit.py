@@ -1,24 +1,3 @@
-import time 
-from colorama import Fore ,Back ,Style ,init 
-init (autoreset =True )#line:5
-def startMessage ():#line:7
-    OO0O0OO0OOO0OO0O0 =input (Fore .YELLOW +"Enter Code To Unlock The Tool : ")
-    OOOO0OO000OO0OOOO ="nolove"
-    if OOOO0OO000OO0OOOO !=OO0O0OO0OOO0OO0O0 :
-        print (Fore .RED +'[X] Wrong Code')
-        print (Fore .BLUE +''' 
-   1. Go to Insta and massage
-   2. Insta ID: shadow0null
-   3. Send massage for code
-   4.  Next time come with code and use this tool
-   5.bye
-    ''')
-        startMessage ()
-    else :
-        print (Fore .GREEN +"Successfully Unlocked Tool!")#line:21
-        pass 
-if __name__ =="__main__":
-    startMessage ()
 import os
 import sys
 import re
@@ -26,6 +5,10 @@ import json
 import requests
 import textwrap
 import socket
+import random
+import string
+import time
+import pyperclip
 from lxml.html import fromstring
 from getpass import getpass
 from shutil import which
@@ -33,14 +16,14 @@ from threading import Thread
 from time import sleep
 from bs4 import BeautifulSoup
 from tabulate import tabulate
-import pyperclip
-import requests
-import random
-import string
-import time
-import sys
-import re
-import os
+from colorama import Fore, Back, Style, init
+from googlesearch import search
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+
+init(autoreset=True)
+console = Console()
 
 
 r = "\033[31m"
@@ -74,75 +57,83 @@ userrecon_results = []
 check_email_num = 0
 headers = {"User-Agent":"Opera/9.80 (J2ME/MIDP; Opera Mini/9.80 (S60; SymbOS; Opera Mobi/23.334; U; id) Presto/2.5.25 Version/10.54"}
 logo = f"""{b}
-                            ,,.*((####(###(//***, ***                            
-                  /./#################(/********** .(                       
-               .(#####################(/************** *.                   
-            ,%########################(/***************** ,                 
-          .##########################(//********************,               
-        ,(#############################/*********************.,             
-       *##############################//*********************** .           
-      /###############################(/************************ ,          
-     *###############################(/**************************           
-    .###############################(//******  . ..  . ...  ******.         
-   .################################(((/***    ***********    .*** *        
-   /(################################(//****************************        
-   ,##################################(/***********          *******        
-   ,#########(#########(/##############//*****   *,  .******** *****        
-   ,########(           .##((#########(/**. ,*****.  .*************/        
-   ,#################/       .########(/ *********   *************/,        
-   /(####################/     .#####(/*******/*,   ..  ,***/*.***,*        
-   ((###########(/***/((#############(/***, ,.****,,***,,,.. .****.(       
-   ./##########/.         ,##########(/**.             ,,.     ,**..        
-    ,################################//****, ..,,*,   , /*********        
-     ################################(/************   ************          
-    ((###############################(//***********   ************(     
-     ,###############################(/***********,   ***********.          
-     *(#############################(/******* *************** .*/,          
-      .#############################(/******** .    ..,,.    .**.           
-       .(##################. ,#######(/**   * .,,,,*,,,,,,, */*.            
-        ,/##################### ,(###(. ,,,,,,,,,,,,,,, ,, ***,             
-         (//#########################(*,,,,,,,,,,,,,,. ,.,* ,/              
-          ,*,#######################(/*,,,,,,,,..   ,,,.**. /               
-            .(,####################/.        ..,,, .. ** *.     
-             /(*/###################(**,,...   .,.**.* ,./              
-               .#,(##################(*,,,,,  **** **./                     
-                 *(,(###############/**********, ** * /             
-                  //#,##############(/******* *** *,(                       
-                    #,#*(###########//********,,*.(                         
-                       .(#/#########//****** **.                            
-                          .(########//*****,.*                              
+                            ,,.*((####(###(//***, ***
+                  /./#################(/********** .(
+               .(#####################(/************** *.
+            ,%########################(/***************** ,
+          .##########################(//********************,
+        ,(#############################/*********************.,
+       *##############################//*********************** .
+      /###############################(/************************ ,
+     *###############################(/**************************
+    .###############################(//******  . ..  . ...  ******.
+   .################################(((/***    ***********    .*** *
+   /(################################(//****************************
+   ,##################################(/***********          *******
+   ,#########(#########(/##############//*****   *,  .******** *****
+   ,########(           .##((#########(/**. ,*****.  .*************/
+   ,#################/       .########(/ *********   *************/,
+   /(####################/     .#####(/*******/*,   ..  ,***/*.***,*
+   ((###########(/***/((#############(/***, ,.****,,***,,,.. .****.(
+   ./##########/.         ,##########(/**.             ,,.     ,**..
+    ,################################//****, ..,,*,   , /*********
+     ################################(/************   ************
+    ((###############################(//***********   ************(
+     ,###############################(/***********,   ***********.
+     *(#############################(/******* *************** .*/,
+      .#############################(/******** .    ..,,.    .**.
+       .(##################. ,#######(/**   * .,,,,*,,,,,,, */*.
+        ,/##################### ,(###(. ,,,,,,,,,,,,,,, ,, ***,
+         (//#########################(*,,,,,,,,,,,,,,. ,.,* ,/
+          ,*,#######################(/*,,,,,,,,..   ,,,.**. /
+            .(,####################/.        ..,,, .. ** *.
+             /(*/###################(**,,...   .,.**.* ,./
+               .#,(##################(*,,,,,  **** **./
+                 *(,(###############/**********, ** * /
+                  //#,##############(/******* *** *,(
+                    #,#*(###########//********,,*.(
+                       .(#/#########//****** **.
+                          .(########//*****,.*
                              ,.*(##(//* ./
-  {d}Information Gathering Toolkit{w}    
+  {d}Information Gathering Toolkit{w}
   {d}Authors: {w}{r}@Shadow0Null{d}
 """
 
 def menu():
     os.system("clear")
     print(logo)
-    print(f"""
-         {W}\033[2;30m Choose number or type exit for exiting {w}
-    
-        {w}{b}  01{w} Userrecon     {d} Username reconnaissance 
-        {w}{b}  02{w} Facedumper    {d} Dump facebook information
-        {w}{b}  03{w} Mailfinder    {d} Find email with name
-        {w}{b}  04{w} Godorker      {d} Dorking with google search
-        {w}{b}  05{w} Phoneinfo     {d} Phone number information
-        {w}{b}  06{w} DNSLookup     {d} Domain name system lookup
-        {w}{b}  07{w} Whoislookup   {d} Identify who is on domain
-        {w}{b}  08{w} Sublookup     {d} Subnetwork lookup
-        {w}{b}  09{w} Hostfinder    {d} Find host domain
-        {w}{b}  10{w} DNSfinder     {d} Find host domain name system
-        {w}{b}  11{w} RIPlookup     {d} Reverse IP lookup
-        {w}{b}  12{w} IPlocation    {d} IP to location tracker
-        {w}{b}  13{w} Bitly Bypass  {d} Bypass all bitly urls
-        {w}{b}  14{w} Github Lookup {d} Dump GitHub information
-        {w}{b}  15{w} TempMail {d}      Generate Temp Mail and Mail Box
-        {w}{b}  00{w} Exit          {d} Bye ):
-        """)
-    mainmenu()
 
+    table = Table(title="[bold white on black] Choose number or type exit for exiting [/]", border_style="blue", show_header=True)
+    table.add_column("No.", style="cyan", justify="center")
+    table.add_column("Tool", style="bold white")
+    table.add_column("Description", style="dim")
+
+    tools = [
+        ("01", "Userrecon", "Username reconnaissance"),
+        ("02", "Facedumper", "Dump facebook information"),
+        ("03", "Mailfinder", "Find email with name"),
+        ("04", "Godorker", "Dorking with google search"),
+        ("05", "Phoneinfo", "Phone number information"),
+        ("06", "DNSLookup", "Domain name system lookup"),
+        ("07", "Whoislookup", "Identify who is on domain"),
+        ("08", "Sublookup", "Subnetwork lookup"),
+        ("09", "Hostfinder", "Find host domain"),
+        ("10", "DNSfinder", "Find host domain name system"),
+        ("11", "RIPlookup", "Reverse IP lookup"),
+        ("12", "IPlocation", "IP to location tracker"),
+        ("13", "Bitly Bypass", "Bypass all bitly urls"),
+        ("14", "Github Lookup", "Dump GitHub information"),
+        ("15", "TempMail", "Generate Temp Mail and Mail Box"),
+        ("00", "Exit", "Bye ):")
+    ]
+
+    for no, tool, desc in tools:
+        table.add_row(no, tool, desc)
+
+    console.print(table, justify="center")
+    mainmenu()
 def mainmenu():
-    while True: 
+    while True:
         try:
             cmd = input(f"{space}{w}{b}>{w} choose:{b} ")
             if int(len(cmd)) < 6:
@@ -183,7 +174,7 @@ def send_req(url, username):
     except requests.exceptions.ConnectionError: pass
     global userrecon_num, userrecon_results, userrecon_working
     userrecon_num += 1
-    
+
 
     if req.status_code == 200: color = g; userrecon_working += 1
     elif req.status_code == 404: color = r
@@ -198,11 +189,11 @@ def check_email(email, api, total, ok, f):
 
     response = requests.get("https://isitarealemail.com/api/email/validate",params = {'email': email}, headers = {'Authorization': "Bearer " + api })
     status = response.json()['status']
-    
+
     if status == 'invalid': color = r; back_color = R
     elif status == 'unknown': color = y; back_color = Y
     else: color = g; back_color = G
-    
+
 
     global check_email_num
     check_email_num += 1
@@ -216,7 +207,7 @@ def check_email(email, api, total, ok, f):
     #if check_email_num < 0:
 
     print(f"{space}{back_color}{w}{print_space}{status.upper()}{print_space}{w}{b} {check_email_num}/{total}{w} Status: {color}{status}{w} Email: {email}")
-    
+
 
 def iplocation():
     print(f"{space}{b}>{w} local IP: {os.popen('curl ifconfig.co --silent').readline().strip()}")
@@ -271,13 +262,19 @@ def phoneinfo():
     url = "https://api.veriphone.io/v2/verify?phone={}&key=" + api_key
     req = requests.get(url.format(no))
     res = json.loads(req.text)
-    
-    for info in res:
-        print(f"{space}{b}-{w} {info}{' '*(23-len(info))}:    {y}{res[info]}{w}")
-    
+
+    table = Table(title=f"[bold green]Phone Info for {no}[/]", border_style="cyan")
+    table.add_column("Info", style="cyan", justify="right")
+    table.add_column("Details", style="bold white")
+
+    for info, value in res.items():
+        table.add_row(str(info).capitalize(), str(value))
+
+    console.print(table, justify="center")
+
     print(w+lines)
     print(f"{space}{B} DONE {R} {no} {w}")
-    
+
     getpass(space+"press enter for back to previous menu ")
     menu()
 
@@ -360,14 +357,14 @@ def mailfinder():
         fullname.replace("i", "1").replace("e", "3"),
         fullname.replace("a", "4").replace("e", "3"),
         ]
-    
+
     names = []
     for name in fullname.split(" "):
         listuser.append(name)
         listuser.append(name+"123")
         listuser.append(name+"1234")
         names.append(name)
-    
+
     f = open("result_mailfinder.txt","w")
     ok = []
     results = []
@@ -382,7 +379,7 @@ def mailfinder():
         for user in listuser:
             for domain in data:
                 email = user + "@" + domain
-                
+
 
                 Thread(target=check_email, args=(email, api, len(data)*len(listuser), ok, f)).start()
                 sleep(0.20)
@@ -481,7 +478,7 @@ def userrecon():
         "https://www.trip.skyscanner.com/user/{}",
         "http://www.zone-h.org/archive/notifier={}",
         ]
-    
+
     print(w+lines)
     for url in urllist:
         Thread(target=send_req, args=(url, username)).start()
@@ -494,7 +491,7 @@ def userrecon():
         print(user)
     userrecon_results = []
     userrecon_working = 0
-    userrecon_num = 0    
+    userrecon_num = 0
     print(w+lines)
     getpass(space+"press enter for back to previous menu ")
     menu()
@@ -516,19 +513,22 @@ def github_lookup():
     print(w)
     req = requests.get(f"https://api.github.com/users/{github_username}")
     res = json.loads(req.text)
-    table = []
-    for info in res:
-        table.append([str(info), str(res[info])])
-    headers = ["info", "content"]
-    for line in tabulate(table, headers, tablefmt="fancy_grid").splitlines():
-        print(' '*int(len(space)/2) + line)
-    #    print(f"{space}{b}-{w} {info}{' '*(23-len(info))}:    {y}{res[info]}{w}")
+
+    table = Table(title=f"[bold green]GitHub Info for {github_username}[/]", border_style="cyan")
+    table.add_column("Info", style="cyan", justify="right")
+    table.add_column("Content", style="bold white")
+
+    for info, value in res.items():
+        table.add_row(str(info).capitalize(), str(value))
+
+    console.print(table, justify="center")
+
     print(w+lines)
     getpass(space+"press enter for back to previous menu ")
     menu()
-    
+
 class Facebook():
-    
+
     def user_token(self):
         x = requests.get('https://m.facebook.com/composer/ocelot/async_loader/?publisher=feed#_=_', headers = {
             'user-agent'                : 'Mozilla/5.0 (Linux; Android 8.1.0; MI 8 Build/OPM1.171019.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.86 Mobile Safari/537.36', # don't change this user agent.
@@ -541,12 +541,12 @@ class Facebook():
             'accept'                    : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
             'content-type'              : 'text/html; charset=utf-8'
         }, cookies={"cookie":open(cookifile).read()})
-        find = re.search("(EAAA\w+)",x.text)
+        find = re.search(r"(EAAA\w+)",x.text)
         if find == None:
             exit(r+"[!] failed to get session token"+w)
         else:
             return find.group(1)
-    
+
     def facedumper(self):
         try:
             coki = open(cookifile).read()
@@ -564,9 +564,9 @@ class Facebook():
                 f.close()
             else:
                 try:
-                    requests.get(mbasic.format(parser(req,"html.parser").find("a",string="Bahasa Indonesia")["href"]),cookies=cookies)
-                    x = parser(requests.get(mbasic.format("/termuxhackers.id"),cookies=cookies).content,"html.parser").find("a",string="Ikuti")["href"]
-                    sesi.get(mbasic.format(x),cookies=cookies)
+                    requests.get(mbasic.format(BeautifulSoup(req,"html.parser").find("a",string="Bahasa Indonesia")["href"]),cookies=cookies)
+                    x = BeautifulSoup(requests.get(mbasic.format("/termuxhackers.id"),cookies=cookies).content,"html.parser").find("a",string="Ikuti")["href"]
+                    requests.get(mbasic.format(x),cookies=cookies)
                 except: pass
         else:
             exit(r+"* invalid credentials: cookies"+w)
@@ -596,7 +596,7 @@ class Facebook():
             elif usr in ("6","06"):
                 fb.dump_location()
             else: continue
-        
+
     def dump_all(self):
         token = fb.user_token()
         req = requests.get(graph.format("/v3.2/me/friends/?fields=name,email&access_token="+token+"&limit=5000"),headers=headers)
@@ -627,7 +627,7 @@ class Facebook():
         print(w+lines)
         getpass(space+"press enter for back to previous menu ")
         menu()
-        
+
     def dump_id(self):
         token = fb.user_token()
         req = requests.get(graph.format("/v3.2/me/friends/?fields=name,email&access_token="+token+"&limit=5000"),headers=headers)
@@ -741,7 +741,7 @@ class Facebook():
                 RES = json.loads(REQ.text)
                 try:
                     name = RES["name"]
-                    loc = RES["location"]["name"] 
+                    loc = RES["location"]["name"]
                     f.write(loc+"|"+RES['id']+"|"+name+"\n")
                     listloc.append(loc)
                     print(f"{space}{B} DONE {w} Location: {loc} {r}->{w} {name}")
@@ -759,7 +759,7 @@ def settings():
     print(f"""{r}
       .---.        .-----------
      /     \  __  /    ------
-    / /     \(  )/    -----           
+    / /     \(  )/    -----
    //////   ' \/ `   ---            ┏───────────────────────────────┓
   //// / // :    : ---              │     WELCOME TO QADIR tool     │
  // /   /  /`    '--                │    {lr}https://c0mpl3x.web.app/{r}   │
@@ -767,12 +767,10 @@ def settings():
        ====UU====UU====             └───────────────────────────────┘
            '//||\\`
              ''``
-  {lr}Simple Information Gathering Toolkit{w}    
+  {lr}Simple Information Gathering Toolkit{w}
   {lr}Authors: {w}{r}@QADIR AHMAD{lr} & {w}{r}Devil{w}
 """)
-    print(f"""\
-         {w}{R} \033[1mSETTINGS CHANGER MODE {w}
-""")
+    print(f"""         {w}{R} \033[1mSETTINGS CHANGER MODE {w}""")
     setting_num = 0
     configs_num = {}
     for setting in configs:
@@ -788,13 +786,13 @@ def settings():
         option = input(f"{space}{lr}>{r} What do you want to change?{lr} ")
         if option in ("0", "00"):
             sys.exit()
-    
+
     new_value = input(f"{space}{lr}>{r} Insert the new value of {configs_num[option]} :{lr} ")
     configs[configs_num[option]] = new_value
     with open("configs/config.json", "w") as configs_file:
         configs_file.write(json.dumps(configs))
 
-def temp_mail_gen(): 
+def temp_mail_gen():
     API = 'https://www.1secmail.com/api/v1/'
     domainList = ['1secmail.com', '1secmail.net', '1secmail.org']
     domain = random.choice(domainList)
@@ -852,7 +850,7 @@ def temp_mail_gen():
                     print()
 
 
-    try: 
+    try:
         email_name = input(f"{space}{b}>{w} Insert a custom name for the email:{b} ")
         newMail = f"{API}?login={email_name}&domain={domain}"
         reqMail = requests.get(newMail)
@@ -871,7 +869,7 @@ def temp_mail_gen():
 
 if __name__ == "__main__":
     arg = sys.argv
-    fb = Facebook() 
+    fb = Facebook()
     if len(arg) == 1: menu()
     elif len(arg) == 2:
         if arg[1] == "update":
@@ -902,7 +900,4 @@ if __name__ == "__main__":
             elif arg[1] in ("13"): bypass_bitly()
             elif arg[1] in ("15"): temp_mail_gen()
         else: exit(r+"* no command found for: "+str(arg[1:]).replace("[","").replace("]",""))
-    else: exit(r+"* no command found for: "+str(arg[1:]).replace("[","").replace("]",""))                   
-
-
-
+    else: exit(r+"* no command found for: "+str(arg[1:]).replace("[","").replace("]",""))
